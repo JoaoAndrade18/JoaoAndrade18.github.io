@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da avinhação</title>
+    
+    <style>
+        *{
+            margin: 1vh;
+            padding: 0;
+        }
+        body{
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100;
+            width: 100;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; */
+            grid-gap: 1vh;
+            
+        }
+        .div1{
+            grid-column: 2;
+            padding: 1vh;
+            text-align: center;
+            grid-row: 1;
+
+        }.div1:hover{
+            
+            color: #000;
+            cursor: wait;
+        }
+        .div2{
+            grid-column: 2;
+            padding: 1vh;
+            text-align: center;
+        }.div2:hover{
+            
+            color: #000;
+            cursor: wait;
+        }
+        .div3-container-input{
+            grid-column: 2;
+            grid-row: 3;
+            align-items: center;
+            padding: 1vh;
+            /* text-align: center; */
+            background-color: rgb(78, 73, 66);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            flex-wrap: wrap;
+        }
+        .div-button{
+            background-color: #7a2b2b;
+            color: #fff;
+            border: none;
+            padding: 1vh;
+            margin: 1vh;
+            border-radius: 1vh;
+            grid-column: 3;
+            cursor: pointer;
+        }.div-button:hover{
+            background-color: #fff;
+            color: #7a2b2b;
+        }
+        .div3-tentativa{
+            background-color: #7a2b2b;
+            margin: 1vh;
+        }
+
+    </style>
+
+    <script>
+        
+    const number = Math.floor(Math.random() * 100) + 1; 
+    var aux = 0;
+
+    // criando div para titulo
+    document.addEventListener("DOMContentLoaded", () => {
+        var div = document.createElement("div");
+        div.innerHTML = "Jogo da adivinhação";
+        div.className = "div1";
+        document.body.appendChild(div);
+    });
+    // criando div para texto
+    document.addEventListener("DOMContentLoaded", () => {
+        var div = document.createElement("div");
+        div.innerHTML = "Selecionamos um número aleatório entre 1 e 100. Veja se consegue adivinhar em 10 chances ou menos. Nós lhe diremos se seu palpite está com valor alto ou baixo.";
+        div.className = "div2";
+        document.body.appendChild(div);
+    });
+    // criando container para input
+    document.addEventListener("DOMContentLoaded", () => { 
+        var div = document.createElement("div");
+        div.className = "div3-container-input";
+        document.body.appendChild(div)
+    })
+    // criando container para output
+    document.addEventListener("DOMContentLoaded", () => { 
+        var div = document.createElement("div");
+        div.className = "div4-container-output";
+        div.style.gridColumn = "2";
+        // div.style.backgroundColor = "#7a2b2b";
+        div.style.color = "white";
+        document.body.appendChild(div)
+    })
+    // criando label
+    document.addEventListener("DOMContentLoaded", () => {
+        var label = document.createElement("label");
+        label.innerHTML = "Digite um número: ";
+        label.className = "div3-label";
+        document.querySelector(".div3-container-input").appendChild(label);
+    })
+    // criando input  
+    document.addEventListener("DOMContentLoaded", () => {
+        var input = document.createElement("input");
+        input.max = "100"
+        input.min = "1"
+        input.maxLength = "3"
+        input.type = "number";
+        input.className = "div3-input";
+        document.querySelector(".div3-container-input").appendChild(input);
+    })
+    // criando button 
+    document.addEventListener("DOMContentLoaded", () => {
+        var button = document.createElement("button");
+        button.innerHTML = "Enviar";
+        button.onclick = () => {
+            var input = document.querySelector(".div3-input");
+            var div = document.createElement("div");
+            div.innerHTML = input.value;
+            div.className = "div3-tentativa";
+            document.querySelector(".div3-container-input").appendChild(div);
+            teste(input.value);
+        }
+        button.className = "div-button";
+        document.querySelector(".div3-container-input").appendChild(button);
+    })
+    // criando função para testar o valor
+    function teste(valor) {
+        if (aux == 10){
+            document.querySelector(".div4-container-output").innerHTML = "Suas tentativas acabaram! O número era " + number; 
+            document.querySelector(".div3-input").setAttribute("disabled", "disabled")  
+            document.querySelector(".div-button").setAttribute("disabled", "disabled")  
+                var button = document.createElement("button");
+                button.className = "div3-input-restart";
+                button.innerHTML = "Reiniciar";
+                button.style.backgroundColor= "#7a2b2b";
+                button.style.color= "#fff";
+                button.style.border= "none";
+                button.style.padding= "1vh";
+                button.style.margin= "1vh";
+                button.style.borderRadius= "1vh";
+                button.style.cursor= "pointer";
+                button.onclick = () => {
+                    location.reload();
+                }
+                document.querySelector(".div4-container-output").appendChild(button);
+        }else{
+            if (valor == number) {
+                document.querySelector(".div4-container-output").innerHTML = ("Parabéns! Você acertou!"), document.querySelector(".div4-container-output").style.backgroundColor = "green";
+                document.querySelector(".div3-input").setAttribute("disabled", "disabled")  
+                document.querySelector(".div-button").setAttribute("disabled", "disabled") 
+                var button = document.createElement("button");
+                button.className = "div3-input-restart";
+                button.innerHTML = "Reiniciar";
+                button.style.backgroundColor= "#7a2b2b";
+                button.style.color= "#fff";
+                button.style.border= "none";
+                button.style.padding= "1vh";
+                button.style.margin= "1vh";
+                button.style.borderRadius= "1vh";
+                button.style.cursor= "pointer";
+                button.onclick = () => {
+                    location.reload();
+                }
+                document.querySelector(".div4-container-output").appendChild(button);
+
+            } else if (valor > number) {
+                document.querySelector(".div4-container-output").innerHTML = "Seu palpite está muito alto!";
+
+            } else if (valor < number) {
+                document.querySelector(".div4-container-output").innerHTML = "Seu palpite está muito baixo!";
+            }
+        }
+        aux++;
+    }
+
+
+        
+    </script>
+
+</head>
+<body></body> 
+
+</body>
+</html>
